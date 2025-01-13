@@ -4,8 +4,13 @@ import os
 import time
 import streamlit as st
 
+
 def main():
-    st.title("chat with Alice")
+    title = """
+        <h1 style="text-align:center">Alice</h1>
+    """
+    st.html(title)
+    st.warning("Note : Alice is curently under development",icon="⚠️")
     Alice = ChatGroq(api_key=os.getenv("GROQ_API_KEY"),model="llama3-8b-8192")
         
     file = open("personality.txt","r")
@@ -22,19 +27,36 @@ def main():
         st.session_state.messages = []
 
     for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
+        with st.chat_message(message["role"],avatar=message["avatar"]):
             st.markdown(message["content"])
     
-    user_input = st.chat_input("say something...!!")
-    if user_input:
-        with st.chat_message("user"):
-            st.markdown(user_input)
-        st.session_state.messages.append({"role":"user","content":user_input})
+    user_input = st.chat_input("say hi to alice...")
 
-        with st.chat_message("assistant"):
-           response = chain.invoke({"text":user_input})
+    user_img = "images/user2.png"
+    alice_img = "images/Alice.jpeg"
+    if user_input:
+        # display user message
+        with st.chat_message("user",avatar=user_img):
+            st.markdown(user_input)
+        st.session_state.messages.append({"role":"user",
+                                          "content":user_input,
+                                          "avatar":user_img
+                                          })
+        # context s
+        context = "\n".join(
+            [f"{msg['role']}: {msg['content']}" for msg in st.session_state.messages]
+        )
+
+        combined_input = f"{context}\nUser: {user_input}"
+        
+        # display alice message 
+        with st.chat_message("assistant",avatar="images/Alice.jpeg"):
+           response = chain.invoke({"text":combined_input})
            st.markdown(response.content)
-        st.session_state.messages.append({"role":"assistant","content":response.content})
+        st.session_state.messages.append({"role":"assistant",
+                                          "content":response.content,
+                                          "avatar":alice_img,
+                                          })
 
 
 
