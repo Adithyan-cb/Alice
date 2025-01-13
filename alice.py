@@ -32,7 +32,7 @@ def main():
     
     user_input = st.chat_input("say hi to alice...")
 
-    user_img = "images/user2.png"
+    user_img = "images/user.png"
     alice_img = "images/Alice.jpeg"
     if user_input:
         # display user message
@@ -42,7 +42,7 @@ def main():
                                           "content":user_input,
                                           "avatar":user_img
                                           })
-        # context s
+        # context
         context = "\n".join(
             [f"{msg['role']}: {msg['content']}" for msg in st.session_state.messages]
         )
