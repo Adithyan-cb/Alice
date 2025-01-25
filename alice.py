@@ -6,6 +6,14 @@ from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
 
 def main():
+    hide_st_style = """
+    <style>
+    #MainMenu {visibility:hidden;}
+    footer {visibility:hidden;}
+    header {visibility:hidden;}
+    """
+    st.markdown(hide_st_style,unsafe_allow_html=True)
+    
     # user and chatbot image
     user_img = "images/user.png"
     alice_img = "images/Alice.jpeg"
