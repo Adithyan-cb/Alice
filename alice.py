@@ -30,6 +30,8 @@ def main():
         ("system","conversation history:{history}"),
         ("user","{input}")
     ])
+
+    # creating conversational chain
     chain = ConversationChain(
         llm=Alice,
         memory=st.session_state.memory,
