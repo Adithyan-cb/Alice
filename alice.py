@@ -1,39 +1,52 @@
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 import os
-import time
 import streamlit as st
-
+from langchain.memory import ConversationBufferMemory
+from langchain.chains import ConversationChain
 
 def main():
+    # user and chatbot image
+    user_img = "images/user.png"
+    alice_img = "images/Alice.jpeg"
     title = """
         <h1 style="text-align:center">Alice</h1>
     """
     st.html(title)
     st.warning("Note : Alice is curently under development",icon="⚠️")
     Alice = ChatGroq(api_key=os.getenv("GROQ_API_KEY"),model="llama3-8b-8192")
-        
-    file = open("personality.txt","r")
+    
+    if "memory" not in st.session_state:
+        st.session_state.memory = ConversationBufferMemory()
 
+    # chatbot personality
+    file = open("personality.txt","r")
     system = file.read()
     file.close()
 
-    human = "{text}"
 
-    prompt = ChatPromptTemplate.from_messages([("system",system),("user",human)])
-    chain = prompt | Alice
+    prompt = ChatPromptTemplate.from_messages([
+        ("system",system),
+        ("system","conversation history:{history}"),
+        ("user","{input}")
+    ])
+    chain = ConversationChain(
+        llm=Alice,
+        memory=st.session_state.memory,
+        prompt=prompt,
+        verbose=True
+    )
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
+    # displaying previous messages
     for message in st.session_state.messages:
         with st.chat_message(message["role"],avatar=message["avatar"]):
             st.markdown(message["content"])
     
     user_input = st.chat_input("say hi to alice...")
 
-    user_img = "images/user.png"
-    alice_img = "images/Alice.jpeg"
     if user_input:
         # display user message
         with st.chat_message("user",avatar=user_img):
@@ -42,19 +55,16 @@ def main():
                                           "content":user_input,
                                           "avatar":user_img
                                           })
-        # context
-        context = "\n".join(
-            [f"{msg['role']}: {msg['content']}" for msg in st.session_state.messages]
-        )
 
-        combined_input = f"{context}\nUser: {user_input}"
         
         # display alice message 
         with st.chat_message("assistant",avatar="images/Alice.jpeg"):
-           response = chain.invoke({"text":combined_input})
-           st.markdown(response.content)
+           response = chain.predict(input=user_input)
+           st.markdown(response)
+        
+
         st.session_state.messages.append({"role":"assistant",
-                                          "content":response.content,
+                                          "content":response,
                                           "avatar":alice_img,
                                           })
 
