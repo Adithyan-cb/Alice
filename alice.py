@@ -5,23 +5,35 @@ import streamlit as st
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
 
+
 def main():
     hide_st_style = """
     <style>
     #MainMenu {visibility:hidden;}
     footer {visibility:hidden;}
     header {visibility:hidden;}
+    @keyframes fadeIn{
+        from {opacity:0}
+        to {opacity:1}
+    }
     """
     st.markdown(hide_st_style,unsafe_allow_html=True)
     
     # user and chatbot image
     user_img = "images/user.png"
     alice_img = "images/Alice.jpeg"
+
+    
     title = """
-        <h1 style="text-align:center">Alice</h1>
+        <h1 style="text-align:center; 
+                   background: -webkit-linear-gradient(#7EF29D, #0F68A9);
+                   -webkit-background-clip: text;
+                   -webkit-text-fill-color: transparent;
+                   animation: fadeIn 0.5s ease-in-out;">
+            Hi, I'm Alice
+        </h1>
     """
-    st.html(title)
-    st.warning("Note : Alice is curently under development",icon="⚠️")
+    st.markdown(title, unsafe_allow_html=True)
     Alice = ChatGroq(api_key=os.getenv("GROQ_API_KEY"),model="llama3-8b-8192")
     
     if "memory" not in st.session_state:
@@ -52,11 +64,12 @@ def main():
 
     # displaying previous messages
     for message in st.session_state.messages:
-        with st.chat_message(message["role"],avatar=message["avatar"]):
+        with st.chat_message(message["role"], avatar=message["avatar"]):
             st.markdown(message["content"])
     
     user_input = st.chat_input("say hi to alice...")
 
+    # display user message
     if user_input:
         # display user message
         with st.chat_message("user",avatar=user_img):
@@ -70,7 +83,7 @@ def main():
         # display alice message 
         with st.chat_message("assistant",avatar="images/Alice.jpeg"):
            response = chain.predict(input=user_input)
-           st.markdown(response)
+           st.markdown(response)    
         
 
         st.session_state.messages.append({"role":"assistant",
@@ -79,6 +92,8 @@ def main():
                                           })
 
 
-
 if __name__ == "__main__":
     main()
+
+
+
