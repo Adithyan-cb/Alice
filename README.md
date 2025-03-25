@@ -11,19 +11,16 @@ Alice starts off a little shy, but give her a minute, and she’ll open up with 
 
 Created by **[Adithyan CB](https://github.com/adithyancb)**, Alice is designed to be more than just a chatbot—she’s the friend who always gets your vibe.  
 
----
 
 ## 🌐 Try Alice Here  
 👉 [chat-with-alice.streamlit.app](https://chat-with-alice.streamlit.app)  
 
 Alice runs on **Streamlit** for the frontend and uses **Meta Llama 3** through **Groq** for fast and engaging conversations.   
 
----
 
 ## 🏆 Why Alice Stands Out  
 Unlike other chatbots, Alice isn’t trying to be a therapist or a search engine—she’s just here to vibe with you. From dropping a clever meme reference to offering heartfelt advice, Alice makes every chat feel like a hangout with your bestie.  
 
----
 
 ## 🙌 Contributing  
 Feel like you can make Alice even cooler? PRs are welcome!  
@@ -33,11 +30,11 @@ Feel like you can make Alice even cooler? PRs are welcome!
 4. Push to the branch (`git push origin feature-branch`)  
 5. Create a pull request  
 
----
+
 
 ## 📜 License  
 This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.  
 
----
+
 
 👾 **Alice** – She’s not just a chatbot, she’s a whole vibe. 😎
