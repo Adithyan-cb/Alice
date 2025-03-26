@@ -4,7 +4,7 @@ import os
 import streamlit as st
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
-
+import time
 
 def main():
     hide_st_style = """
@@ -81,9 +81,11 @@ def main():
                                           })
 
         
-        # display alice message 
+        # display alice message
+        time.sleep(0.5)
         with st.chat_message("assistant",avatar="images/Alice.jpeg"):
            response = chain.predict(input=user_input)
+           
            st.markdown(response)    
         
 
