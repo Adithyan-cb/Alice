@@ -26,10 +26,11 @@ def main():
     
     title = """
         <h1 style="text-align:center; 
-                   background: -webkit-linear-gradient(#7EF29D, #0F68A9);
+                   background: -webkit-linear-gradient(#68E3F9,#F55A9B, #4F4ED7);
                    -webkit-background-clip: text;
                    -webkit-text-fill-color: transparent;
-                   animation: fadeIn 0.5s ease-in-out;">
+                   animation: fadeIn 0.7s ease-in;
+                   margin-left:1.5rem">
             Hi, I'm Alice
         </h1>
     """
