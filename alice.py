@@ -35,7 +35,8 @@ def main():
         </h1>
     """
     st.markdown(title, unsafe_allow_html=True)
-    Alice = ChatGroq(api_key=os.getenv("GROQ_API_KEY"),model="llama3-8b-8192")
+
+    Alice = ChatGroq(api_key=os.getenv("GROQ_API_KEY"),model="openai/gpt-oss-20b")
     
     if "memory" not in st.session_state:
         st.session_state.memory = ConversationBufferMemory()
