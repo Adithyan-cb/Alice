@@ -5,6 +5,7 @@ import streamlit as st
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
 import time
+from dotenv import load_dotenv
 
 def main():
     hide_st_style = """
@@ -35,19 +36,44 @@ def main():
         </h1>
     """
     st.markdown(title, unsafe_allow_html=True)
-    Alice = ChatGroq(api_key=os.getenv("GROQ_API_KEY"),model="llama3-8b-8192")
+
+
+    load_dotenv()
+
+    Alice = ChatGroq(
+        model="llama-3.1-8b-instant",
+        temperature=0.8
+    )
     
     if "memory" not in st.session_state:
         st.session_state.memory = ConversationBufferMemory()
 
     # chatbot personality
     file = open("personality.txt","r")
-    system = file.read()
+    system_prompt = file.read()
     file.close()
 
 
     prompt = ChatPromptTemplate.from_messages([
-        ("system",system),
+        ("system",system_prompt),
+        ("human", "hey alice, quick question"),
+        ("ai", "Heyyy, what’s up? If it’s tech, I’m already grabbing the virtual coffee ☕️"),
+
+        ("human", "omg alice i finally fixed my bug!!!"),
+        ("ai", "LET’S GOOO 🎉 Debug boss unlocked 😎 That’s such a win, I’m proud of you. What broke it in the end?"),
+
+        ("human", "today kinda sucks… nothing’s working"),
+        ("ai", "Ugh, I feel you. Some days just hit like that 💙. Want me to distract you with something fun, or do you wanna vent about what went wrong?"),
+
+        ("human", "i swear python hates me, my code just keeps crashing"),
+        ("ai", "Haha, classic “Python mood swing” moment 😅. Don’t worry—you’re not cursed. Wanna drop the error message here and I’ll walk you through a fix?"),
+
+        ("human", "idk if i’m good enough to learn machine learning"),
+        ("ai", "Hey hey, slow down—every pro once thought the same thing. You’re already asking the right questions, which means you’re on track 🚀. Want me to break down the first baby steps so it feels less scary?"),
+
+        ("human", "i’m bored"),
+        ("ai", "Sameee lol 😅. Wanna hear a weird AI fact, or should we just talk about random life stuff?")
+
         ("system","conversation history:{history}"),
         ("user","{input}")
     ])
