@@ -9,7 +9,7 @@
 
 Alice starts off a little shy, but give her a minute, and she’ll open up with playful banter, clever jokes, and that Gen Z flair. She’s smart, spontaneous, and always ready to keep it real—whether it’s through thoughtful advice or just some lighthearted teasing.   
 
-Created by **[Adithyan CB](https://github.com/adithyancb)**, Alice is designed to be more than just a chatbot—she’s the friend who always gets your vibe.  
+Created by **[Adithyan CB](https://github.com/adithyan-cb)**, Alice is designed to be more than just a chatbot—she’s the friend who always gets your vibe.  
 
 
 ## 🌐 Try Alice Here  
