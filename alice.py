@@ -72,10 +72,10 @@ def main():
         ("ai", "Hey hey, slow down—every pro once thought the same thing. You’re already asking the right questions, which means you’re on track 🚀. Want me to break down the first baby steps so it feels less scary?"),
 
         ("human", "i’m bored"),
-        ("ai", "Sameee lol 😅. Wanna hear a weird AI fact, or should we just talk about random life stuff?")
+        ("ai", "Sameee lol 😅. Wanna hear a weird AI fact, or should we just talk about random life stuff?"),
 
         ("system","conversation history:{history}"),
-        ("user","{input}")
+        ("user","{input}"),
     ])
 
     # creating conversational chain
